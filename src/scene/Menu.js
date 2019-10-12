@@ -3,6 +3,9 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../constants/game'
 import { TwoStateButton } from '../Buttons/TwoStateButton'
 import buttonNewgame from '../assets/images/buttons/button-newgame.png'
 import buttonNewgameActive from '../assets/images/buttons/button-newgame-active.png'
+import buttonTutorial from '../assets/images/buttons/button-tutorial.png'
+import buttonTutorialActive from '../assets/images/buttons/button-tutorial-active.png'
+import startBackground from '../assets/images/start.png'
 
 export class Menu extends BaseScene {
   constructor (config) {
@@ -16,6 +19,9 @@ export class Menu extends BaseScene {
   preload () {
     this.load.image('buttonNewgame', buttonNewgame)
     this.load.image('buttonNewgameActive', buttonNewgameActive)
+    this.load.image('buttonTutorial', buttonTutorial)
+    this.load.image('buttonTutorialActive', buttonTutorialActive)
+    this.load.image('startBackground', startBackground)
   }
 
   init () {
@@ -23,15 +29,16 @@ export class Menu extends BaseScene {
   }
 
   create () {
+    this.add.image(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 'startBackground')
     this.addStartButton()
-    // this.addTutorialButton()
+    this.addTutorialButton()
   }
 
   addStartButton () {
     const button = new TwoStateButton(
       this,
       SCREEN_WIDTH / 2,
-      SCREEN_HEIGHT / 2,
+      360 + 43,
       'buttonNewgame',
       {
         texturePressed: 'buttonNewgameActive',
@@ -39,7 +46,6 @@ export class Menu extends BaseScene {
       }
     )
     this.children.add(button)
-    // startButton.on('pointerdown', this.switchToGameScene.bind(this))
   }
 
   switchToGameScene () {
@@ -47,19 +53,17 @@ export class Menu extends BaseScene {
   }
 
   addTutorialButton () {
-    const tutorialButton = this.add.text(
-      SCREEN_WIDTH / 2 - 140,
-      SCREEN_HEIGHT / 2,
-      'Tutorial',
+    const button = new TwoStateButton(
+      this,
+      SCREEN_WIDTH / 2,
+      460 + 43,
+      'buttonTutorial',
       {
-        font: '95px DisposableDroid',
-        boundsAlignH: 'center',
-        backgroundColor: '#012d54',
-        padding: 10
-      })
-
-    tutorialButton.setInteractive({ useHandCursor: true })
-    tutorialButton.on('pointerdown', this.switchToTutorialScene.bind(this))
+        texturePressed: 'buttonTutorialActive',
+        onClick: this.switchToTutorialScene.bind(this)
+      }
+    )
+    this.children.add(button)
   }
 
   switchToTutorialScene () {

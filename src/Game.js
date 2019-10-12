@@ -5,6 +5,7 @@ import { Game as GameScene } from './scene/Game'
 import { Background } from './scene/Background'
 import { Tutorial } from './scene/Tutorial'
 import { ScoreOverlay } from './scene/ScoreOverlay'
+import { Tutorial2 } from './scene/Tutorial2'
 
 export class Game extends Phaser.Game {
   constructor () {
@@ -18,6 +19,7 @@ export class Game extends Phaser.Game {
         Background,
         Menu,
         Tutorial,
+        Tutorial2,
         GameScene,
       ]
     })
