@@ -4,6 +4,7 @@ import cardImg from '../assets/images/card.png'
 import { CardStack } from '../util/CardStack'
 import { ScoreOverlay } from './ScoreOverlay'
 
+
 export class Game extends BaseScene {
   constructor () {
     super({
@@ -12,11 +13,27 @@ export class Game extends BaseScene {
   }
 
   preload () {
-    this.load.image("card", cardImg)
+    this.preloadCardImages()
+  }
+
+  preloadCardImages () {
+    const importAll = (require) => {
+      const imagePaths = require.keys()
+      const images = require.keys().map(require)
+
+      const phaserImageKeys = imagePaths.map((imagePath) => {
+        const fileName = imagePath.substr(2)
+        return fileName.substring(0, fileName.length - 4)
+      })
+      for (let i = 0; i < images.length; i++) {
+        this.load.image(phaserImageKeys[i], images[i])
+      }
+    }
+    importAll(require.context('../assets/images/cards', false, /\.(png|jpe?g|svg)$/))
+    this.load.image('card', cardImg)
   }
 
   create () {
-
     if (this.scene.get('ScoreOverlay')) {
       this.scene.remove('ScoreOverlay')
     }
