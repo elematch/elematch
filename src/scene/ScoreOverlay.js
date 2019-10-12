@@ -1,6 +1,8 @@
 import { BaseScene } from './BaseScene'
 import refreshButton from '../assets/images/buttons/button-refresh.png'
 import refreshButtonActive from '../assets/images/buttons/button-refresh-active.png'
+import scoreField from '../assets/images/fields/score-field.png'
+import timerField from '../assets/images/fields/timer-field.png'
 import { TwoStateButton } from '../Buttons/TwoStateButton'
 import card from '../assets/images/card.png'
 
@@ -24,13 +26,6 @@ const BUTTON = {
   Y: 615 + 40,
 }
 
-const BUTTON_STYLE = {
-  font: `${FONT_SIZE}px DisposableDroid`,
-  color: TEXT_COLOR,
-  align: 'right',
-  fixedWidth: 200
-}
-
 export class ScoreOverlay extends BaseScene {
   constructor (props) {
     super({
@@ -47,6 +42,8 @@ export class ScoreOverlay extends BaseScene {
     this.load.image('card', card)
     this.load.image('refreshButton', refreshButton)
     this.load.image('refreshButtonActive', refreshButtonActive)
+    this.load.image('scoreField', scoreField)
+    this.load.image('timerField', timerField)
   }
 
   init ({ time }) {
@@ -59,6 +56,8 @@ export class ScoreOverlay extends BaseScene {
   }
 
   create () {
+    this.add.image(470, BUTTON.Y, 'scoreField')
+    this.add.image(680, BUTTON.Y, 'timerField')
     this.createTimerText()
     this.createScoreText()
     this.createRefreshButton()
