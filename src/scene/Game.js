@@ -11,7 +11,9 @@ export class Game extends BaseScene {
     constructor() {
         super({
             key: 'Game',
-        })
+        });
+
+        this.cardstack = new CardStack();
     }
 
     preloadCardImages () {
@@ -29,6 +31,37 @@ export class Game extends BaseScene {
         }
         importAll(require.context('../assets/images/cards', false, /\.(png|jpe?g|svg)$/))
         this.load.image('card', cardImg)
+    }
+
+    placeDeck () {
+        this.children.removeAll();
+        let deck = this.cardstack.getDeck();
+
+        //card 130 x 170
+        let pos = [
+            [400, 130],
+            [540, 130],
+            [680, 130],
+            [820, 130],
+            [400, 310],
+            [540, 310],
+            [680, 310],
+            [820, 310],
+            [400, 490],
+            [540, 490],
+            [680, 490],
+            [820, 490],
+        ];
+
+        deck.forEach((e, i) => {
+          let cardBase = new Card({scene: this, x: pos[i][0], y: pos[i][1], image: "card", id: i})
+          let cardImage = new CardImage({scene: this, x: pos[i][0], y: pos[i][1], image: getTextureNameForCard(e), id: i, ...e})
+
+          this.children.add(cardBase)
+          this.children.add(cardImage)
+        });
+
+        this.data.get("gameState").newDeck = false;
     }
 
     preload() {
@@ -54,39 +87,13 @@ export class Game extends BaseScene {
 
             gameState.getSelectedCards().forEach((card) => {
                 this.children.getAt(card.id).setSelected(true);
-            })
-        });
-
-        //card 130 x 170
-        let pos = [
-            [400, 130],
-            [540, 130],
-            [680, 130],
-            [820, 130],
-            [400, 310],
-            [540, 310],
-            [680, 310],
-            [820, 310],
-            [400, 490],
-            [540, 490],
-            [680, 490],
-            [820, 490],
-        ];
-
-        let cardStack = new CardStack();
-
-        if (this.data.get("gameState").newDeck) {
-            let deck = cardStack.getDeck();
-
-            deck.forEach((e, i) => {
-                let cardBase = new Card({scene: this, x: pos[i][0], y: pos[i][1], image: "card", id: i})
-                let cardImage = new CardImage({scene: this, x: pos[i][0], y: pos[i][1], image: getTextureNameForCard(e), id: i, ...e})
-
-                this.children.add(cardBase)
-                this.children.add(cardImage)
             });
 
-            this.data.get("gameState").newDeck = false;
-        }
+            if (gameState.newDeck) {
+                this.placeDeck();
+            }
+        });
+
+        this.placeDeck();
     }
 }
