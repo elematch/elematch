@@ -20,7 +20,7 @@ const SCORE = {
 
 // add half of width and length, since position is relative to the center of the image
 const BUTTON = {
-  X: 762 + 65,
+  X: 755 + 65,
   Y: 615 + 40,
 }
 
