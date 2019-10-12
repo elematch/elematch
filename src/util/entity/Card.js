@@ -7,21 +7,23 @@ export class Card {
   }
 
   /**
-   *
-   * @param cards Card[]
+   * public
+   * @param card1 Card
+   * @param card2 Card
+   * @param card3 Card
    * @return {boolean | string}
    */
-  static doCardsMatch (cards) {
-    const elementsMatch = Card.doesPropertyMatch(cards, 'element')
-    const countsMatch = Card.doesPropertyMatch(cards, 'count')
-    const colorsMatch = Card.doesPropertyMatch(cards, 'color')
-    const levelsMatch = Card.doesPropertyMatch(cards, 'level')
+  static doCardsMatch (card1, card2, card3) {
+    const elementsMatch = Card.doesPropertyMatch(card1, card2, card3, 'element')
+    const countsMatch = Card.doesPropertyMatch(card1, card2, card3, 'count')
+    const colorsMatch = Card.doesPropertyMatch(card1, card2, card3, 'color')
+    const levelsMatch = Card.doesPropertyMatch(card1, card2, card3, 'level')
 
     return (elementsMatch && countsMatch && colorsMatch && levelsMatch)
   }
 
   /**
-   *
+   * private
    * @param cards Card[]
    * @param propertyName string
    */
