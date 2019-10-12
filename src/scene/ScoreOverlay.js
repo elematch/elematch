@@ -61,6 +61,7 @@ export class ScoreOverlay extends BaseScene {
     this.createTimerText()
     this.createScoreText()
     this.createRefreshButton()
+    this.subscribeToStateChange()
   }
 
   createTimerText () {
@@ -99,14 +100,14 @@ export class ScoreOverlay extends BaseScene {
   }
 
   subscribeToStateChange () {
-    this.scene.get('Game').events.on('changedata', (data) => {
-      console.log('got data from changedata event', data)
-      if (data.time !== this.timeRemaining) {
-        this.timeRemaining = data.time
+    this.scene.get('Game').events.on('changedata', (gameState) => {
+      // let gameState = this.scene.get('Game').data.get('gameState')
+      if (gameState.time !== this.timeRemaining) {
+        this.timeRemaining = gameState.time
         this.setTimerText(this.timeRemaining)
       }
-      if (data.score !== this.score) {
-        this.score = data.score
+      if (gameState.score !== this.score) {
+        this.score = gameState.score
         this.setTimerText(this.score)
       }
     })
