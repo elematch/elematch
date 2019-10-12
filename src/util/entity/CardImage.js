@@ -32,4 +32,39 @@ export class CardImage extends Phaser.GameObjects.Image {
     }
     this.setActive(state)
   }
+
+  noMatchAnimation() {
+    let timeline = this.scene.tweens.createTimeline();
+
+    timeline.add({
+      targets: this,
+      angle: 4,
+      duration: 40,
+      ease: 'Power2',
+      yoyo: true,
+    })
+    timeline.add({
+      targets: this,
+      angle: -4,
+      duration: 40,
+      ease: 'Power2',
+      yoyo: true,
+    })
+    timeline.add({
+      targets: this,
+      angle: 4,
+      duration: 40,
+      ease: 'Power2',
+      yoyo: true,
+    })
+    timeline.add({
+      targets: this,
+      angle: -4,
+      duration: 40,
+      ease: 'Power2',
+      yoyo: true,
+    })
+
+    timeline.play();
+  }
 }
