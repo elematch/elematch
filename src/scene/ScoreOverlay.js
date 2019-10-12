@@ -174,7 +174,7 @@ export class ScoreOverlay extends BaseScene {
   }
 
   createLifeBar () {
-    const lifeBar = new LifeBar(this, 980, SCREEN_HEIGHT / 2)
+    const lifeBar = new LifeBar(this, 912, SCREEN_HEIGHT / 2)
     this.children.add(lifeBar)
     this.lifeBar = lifeBar
   }
