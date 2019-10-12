@@ -36,18 +36,28 @@ let generateCardDeck = () => {
  * @returns {Card | boolean}
  */
 let getLastCardForSet = (card1, card2, stack) => {
-    let [matchingElement, matchingCount, matchingColor, matchingLevel] = ["element", "count", "color", "level"].map(property => {
-        return stack.filter(elem => {
-            return (elem[property] === card1[property] && elem[property] === card2[property])
-                || (elem[property] !== card1[property] && elem[property] !== card2[property]);
-        })
-    });
+  let cards = stack.filter(elem => {
+      return isValidSet(card1, card2, elem);
+  });
 
-    let cards = matchingElement.filter(c => {
-        return matchingCount.includes(c) && matchingColor.includes(c) && matchingLevel.includes(c);
-    });
+  return cards.pop() || false;
+};
 
-    return cards.pop() || false
+/**
+ * Checks if the given cards are a valid set.
+ *
+ * @param card1
+ * @param card2
+ * @param card3
+ * @returns {boolean}
+ */
+export let isValidSet = (card1, card2, card3) => {
+  let [matchingElement, matchingCount, matchingColor, matchingLevel] = ["element", "count", "color", "level"].map(property => {
+      return (card1[property] === card2[property] && card1[property] === card3[property])
+          || (card1[property] !== card2[property] && card1[property] !== card3[property] && card2[property] !== card3[property]);
+  });
+
+  return matchingElement && matchingCount && matchingColor && matchingLevel;
 };
 
 /**
@@ -89,7 +99,6 @@ export class CardStack {
         let deck = getSetFromStack(this.cards);
 
         if (!deck || this.cards.length < 12) {
-            console.log("regenerate deck");
             this.cards = generateCardDeck();
 
             return this.getDeck();
