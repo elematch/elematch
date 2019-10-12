@@ -53,7 +53,8 @@ export class Game extends BaseScene {
         ];
 
         deck.forEach((e, i) => {
-            let card = new CardImage({scene: this, x: pos[i][0], y: pos[i][1], image: getTextureNameForCard(e), id: i, ...e})
+            let card = new CardImage({scene: this, x: pos[i][0], y: pos[i][1], image: getTextureNameForCard(e), id: i, ...e});
+            card.active = false;
             this.children.add(card)
         });
 
