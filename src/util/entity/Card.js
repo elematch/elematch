@@ -1,13 +1,13 @@
 const ELEMENT = {
   1: "fire",
-  2: "watter",
-  3: "lightning"
+  2: "water",
+  3: "energy"
 };
 
 const COLOR = {
   1: "red",
   2: "blue",
-  3: "green"
+  3: "yellow"
 };
 
 export let getTextureNameForCard = (card) => {
