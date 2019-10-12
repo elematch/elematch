@@ -53,4 +53,10 @@ export class GameState {
             }
         }
     }
+
+    unselectCard(card) {
+        if (this.clickedCards.has(card)) {
+            this.clickedCards.delete(card)
+        }
+    }
 }
