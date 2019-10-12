@@ -16,7 +16,7 @@ export class Game extends Phaser.Game {
       height: SCREEN_HEIGHT,
       title: 'ELEMATCH',
       scene: [
-        Background,
+        Background, // This background scene is a total hack and is only used on the game screen
         Menu,
         Tutorial,
         Tutorial2,
