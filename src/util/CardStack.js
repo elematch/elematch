@@ -21,7 +21,7 @@ let generateCardDeck = () => {
         }
     }
 
-    return cards;
+    return Phaser.Utils.Array.Shuffle(cards);
 };
 
 /**
