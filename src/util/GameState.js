@@ -53,14 +53,6 @@ export class GameState {
         return this.time > 0;
     }
 
-    reset() {
-        this.newDeck = true;
-        this.lastSelectionSuccess = null;
-        this.time = this.initialTime;
-        this.lives = LIVES;
-        this.clickedCards = new Map();
-    }
-
     toggleCard({id, data}) {
         if (this.clickedCards.has(id)) {
             this.clickedCards.delete(id);
