@@ -3,8 +3,15 @@ import refreshButton from '../assets/images/buttons/button-refresh.png'
 import refreshButtonActive from '../assets/images/buttons/button-refresh-active.png'
 import scoreField from '../assets/images/fields/score-field.png'
 import timerField from '../assets/images/fields/timer-field.png'
+import indicatorBar1 from '../assets/images/indicator-bar/indicatorbar-1.png'
+import indicatorBar2 from '../assets/images/indicator-bar/indicatorbar-2.png'
+import indicatorBar3 from '../assets/images/indicator-bar/indicatorbar-3.png'
+import indicatorBar4 from '../assets/images/indicator-bar/indicatorbar-4.png'
+import indicatorBar5 from '../assets/images/indicator-bar/indicatorbar-5.png'
 import { TwoStateButton } from '../Buttons/TwoStateButton'
 import card from '../assets/images/card.png'
+import { LifeBar } from '../util/entity/LifeBar'
+import { SCREEN_HEIGHT } from '../constants/game'
 
 const FONT_SIZE = 60
 const TEXT_COLOR = '#000'
@@ -36,6 +43,7 @@ export class ScoreOverlay extends BaseScene {
     this.timerText = null
     this.score = 0
     this.scoreText = null
+    this.lifeBar = null
   }
 
   preload () {
@@ -44,6 +52,11 @@ export class ScoreOverlay extends BaseScene {
     this.load.image('refreshButtonActive', refreshButtonActive)
     this.load.image('scoreField', scoreField)
     this.load.image('timerField', timerField)
+    this.load.image('indicatorBar1', indicatorBar1)
+    this.load.image('indicatorBar2', indicatorBar2)
+    this.load.image('indicatorBar3', indicatorBar3)
+    this.load.image('indicatorBar4', indicatorBar4)
+    this.load.image('indicatorBar5', indicatorBar5)
   }
 
   init ({ time }) {
@@ -62,6 +75,7 @@ export class ScoreOverlay extends BaseScene {
     this.createScoreText()
     this.createRefreshButton()
     this.subscribeToStateChange()
+    this.createLifeBar()
   }
 
   createTimerText () {
@@ -113,6 +127,11 @@ export class ScoreOverlay extends BaseScene {
       this.score = gameState.score
       this.setScoreText(this.score)
     }
+    if (gameState.lives !== this.lifes) {
+      console.log(gameState)
+      this.updateLifeBar(gameState.lives)
+      this.lifes = gameState.lives
+    }
   }
 
   setTimerText (time) {
@@ -132,6 +151,19 @@ export class ScoreOverlay extends BaseScene {
         scoreString = score.toString().padStart(5, '0')
       }
       this.scoreText.setText(scoreString)
+    }
+  }
+
+  createLifeBar () {
+    const lifeBar = new LifeBar(this, 980, SCREEN_HEIGHT / 2)
+    this.children.add(lifeBar)
+    this.lifeBar = lifeBar
+  }
+
+  updateLifeBar (lifes) {
+    if (this.lifeBar !== null) {
+      console.log('updateLifeBar', lifes)
+      this.lifeBar.setLifes(lifes)
     }
   }
 }
