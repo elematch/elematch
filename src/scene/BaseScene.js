@@ -1,3 +1,3 @@
-export class BaseScene extends Phaser.Scene{
+export class BaseScene extends Phaser.Scene {
 
 }
