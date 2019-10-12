@@ -92,7 +92,11 @@ export class ScoreOverlay extends BaseScene {
       'refreshButton',
       {
         texturePressed: 'refreshButtonActive',
-        onClick: () => { console.log('TODO: reset scene') }
+        onClick: () => {
+          let scene = this.scene.get('Game');
+          scene.data.get("gameState").reset();
+          scene.events.emit("changedata");
+        }
       }
     )
     button.setInteractive({ useHandCursor: true })

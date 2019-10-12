@@ -7,6 +7,7 @@ const POINT_LOSS_ON_MISSING_LIVES = 20;
 
 export class GameState {
     constructor({time}) {
+        this.initialTime = time;
         this.time = time;
         this.lives = LIVES;
         this.clickedCards = new Map();
@@ -50,6 +51,14 @@ export class GameState {
 
     isGameOver() {
         return this.time > 0;
+    }
+
+    reset() {
+        this.newDeck = true;
+        this.lastSelectionSuccess = null;
+        this.time = this.initialTime;
+        this.lives = LIVES;
+        this.clickedCards = new Map();
     }
 
     toggleCard({id, data}) {
