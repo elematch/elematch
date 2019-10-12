@@ -10,7 +10,9 @@ export class TwoStateButton extends Phaser.GameObjects.Image {
       this.setPressed(true)
     })
     this.on('pointerup', this.onFocusEnd)
-    this.on('pointerout', this.onFocusEnd)
+    this.on('pointerout', () => {
+      this.setPressed(false)
+    })
   }
 
   setPressed (isPressed) {
@@ -18,9 +20,9 @@ export class TwoStateButton extends Phaser.GameObjects.Image {
   }
 
   onFocusEnd () {
-    this.setPressed(false)
     if (typeof this.onClick === 'function') {
       this.onClick()
     }
+    this.setPressed(false)
   }
 }
