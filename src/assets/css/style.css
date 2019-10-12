@@ -1,0 +1,11 @@
+@font-face {
+    font-family: "DisposableDroid";
+    src: url('../fonts/disposabledroid-bb/DisposableDroidBB.ttf') format('truetype');
+    font-style: normal;
+    font-weight: 600;
+}
+
+h1 {
+    font-family: "DisposableDroid";
+    font-weight: normal;
+}
