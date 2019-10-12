@@ -1,5 +1,8 @@
 import { BaseScene } from './BaseScene'
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../constants/game'
+import { TwoStateButton } from '../Buttons/TwoStateButton'
+import buttonNewgame from '../assets/images/buttons/button-newgame.png'
+import buttonNewgameActive from '../assets/images/buttons/button-newgame-active.png'
 
 export class Menu extends BaseScene {
   constructor (config) {
@@ -11,7 +14,8 @@ export class Menu extends BaseScene {
   }
 
   preload () {
-
+    this.load.image('buttonNewgame', buttonNewgame)
+    this.load.image('buttonNewgameActive', buttonNewgameActive)
   }
 
   init () {
@@ -20,23 +24,22 @@ export class Menu extends BaseScene {
 
   create () {
     this.addStartButton()
-    this.addTutorialButton()
+    // this.addTutorialButton()
   }
 
   addStartButton () {
-    const startButton = this.add.text(
-      SCREEN_WIDTH / 2 - 90,
-      SCREEN_HEIGHT / 2 - 200,
-      'Start',
+    const button = new TwoStateButton(
+      this,
+      SCREEN_WIDTH / 2,
+      SCREEN_HEIGHT / 2,
+      'buttonNewgame',
       {
-        font: '95px DisposableDroid',
-        boundsAlignH: 'center',
-        backgroundColor: '#012d54',
-        padding: 10
-      })
-
-    startButton.setInteractive({ useHandCursor: true })
-    startButton.on('pointerdown', this.switchToGameScene.bind(this))
+        texturePressed: 'buttonNewgameActive',
+        onClick: this.switchToGameScene.bind(this)
+      }
+    )
+    this.children.add(button)
+    // startButton.on('pointerdown', this.switchToGameScene.bind(this))
   }
 
   switchToGameScene () {
