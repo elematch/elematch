@@ -12,6 +12,7 @@ export class GameState {
         this.clickedCards = new Map();
         this.newDeck = true;
         this.score = 0;
+        this.lastSelectionSuccess = null;
     }
 
     startTimer() {
@@ -49,10 +50,12 @@ export class GameState {
                 });
 
                 if (isValidSet(...cards)) {
+                    this.lastSelectionSuccess = true;
                     this.score += POINTS_PER_SET;
                     this.clickedCards.clear();
                     this.newDeck = true;
                 } else {
+                    this.lastSelectionSuccess = false;
                     this.time -= TIME_LOSS_PER_FAILURE;
                     this.lives -= 1;
                     this.clickedCards.clear();
@@ -62,6 +65,7 @@ export class GameState {
                         this.score -= POINT_LOSS_ON_MISSING_LIVES;
                     }
                 }
+                console.log(this);
             }
         }
     }
