@@ -1,9 +1,7 @@
 import { BaseScene } from './BaseScene'
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../constants/game'
 
 const FONT_SIZE = 60
 const TEXT_COLOR = '#000'
-
 
 const TEXT_Y = 618
 const TIMER = {
@@ -47,12 +45,11 @@ export class ScoreOverlay extends BaseScene {
 
   init ({ time }) {
     console.log(`initialized ScoreOverlay with ${time}s`)
-    if (time) {
-      this.timeRemaining = time
-    } else {
-      this.timeRemaining = 999
+    if (typeof time === 'undefined') {
+      time = 999
     }
-    this.startTimer()
+    this.timeRemaining = time
+    this.setTimerText(time)
   }
 
   create () {
@@ -62,16 +59,17 @@ export class ScoreOverlay extends BaseScene {
   }
 
   createTimerText () {
-    this.timerText = this.add.text(TIMER.X, TIMER.Y, this.timeRemaining, {
+    this.timerText = this.add.text(TIMER.X, TIMER.Y, '', {
       font: `${FONT_SIZE}px DisposableDroid`,
       color: TEXT_COLOR,
       align: 'right',
       fixedWidth: 150
     })
+    this.setTimerText(this.timeRemaining)
   }
 
   createScoreText () {
-    this.scoreText = this.add.text(SCORE.X, SCORE.Y, this.score, {
+    this.scoreText = this.add.text(SCORE.X, SCORE.Y, '', {
       font: `${FONT_SIZE}px DisposableDroid`,
       color: TEXT_COLOR,
       align: 'right',
@@ -96,31 +94,29 @@ export class ScoreOverlay extends BaseScene {
     })
   }
 
-  startTimer () {
-    let timer = this.time.addEvent({
-      delay: 1000,
-      callback: this.decreaseTimer.bind(this),
-      loop: true
+  subscribeToStateChange () {
+    this.scene.get('Game').events.on('changedata', (data) => {
+      console.log('got data from changedata event', data)
+      if (data.time !== this.timeRemaining) {
+        this.timeRemaining = data.time
+        this.setTimerText(this.timeRemaining)
+      }
+      if (data.score !== this.score) {
+        this.score = data.score
+        this.setTimerText(this.score)
+      }
     })
   }
 
-  decreaseTimer (amount = 1) {
-    this.timeRemaining = this.timeRemaining - amount
-    this.updateTimerText()
-    this.events.emit('test', { time: this.timeRemaining })
-  }
-
-  updateTimerText () {
+  setTimerText (time) {
     if (this.timerText !== null) {
-      this.timerText.setText(this.timeRemaining)
+      const paddedString = time.toString().padStart(3, '0')
+      this.timerText.setText(paddedString)
     }
   }
 
   setScoreText (score) {
-    const zeros = 5 - (score.toString(10).length)
-    console.log(`we need to fill ${zeros} zeros`)
-    const zerosString = Array.from({ length: zeros}).map(() => '0').join('')
-    console.log('add string', zerosString)
-    this.scoreText.setText(`${zerosString}${score}`)
+    const paddedString = score.toString().padStart(5, '0')
+    this.scoreText.setText(paddedString)
   }
 }
