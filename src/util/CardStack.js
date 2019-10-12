@@ -51,7 +51,7 @@ let getLastCardForSet = (card1, card2, stack) => {
  * @param card3
  * @returns {boolean}
  */
-let isValidSet = (card1, card2, card3) => {
+export let isValidSet = (card1, card2, card3) => {
   let [matchingElement, matchingCount, matchingColor, matchingLevel] = ["element", "count", "color", "level"].map(property => {
       return (card1[property] === card2[property] && card1[property] === card3[property])
           || (card1[property] !== card2[property] !== card3[property]);
