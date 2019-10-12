@@ -34,7 +34,7 @@ export class ScoreOverlay extends BaseScene {
     })
     this.timeRemaining = -1
     this.timerText = null
-    this.score = 1250
+    this.score = 0
     this.scoreText = null
   }
 
@@ -100,17 +100,19 @@ export class ScoreOverlay extends BaseScene {
   }
 
   subscribeToStateChange () {
-    this.scene.get('Game').events.on('changedata', (gameState) => {
-      // let gameState = this.scene.get('Game').data.get('gameState')
-      if (gameState.time !== this.timeRemaining) {
-        this.timeRemaining = gameState.time
-        this.setTimerText(this.timeRemaining)
-      }
-      if (gameState.score !== this.score) {
-        this.score = gameState.score
-        this.setTimerText(this.score)
-      }
-    })
+    this.scene.get('Game').events.on('changedata', this.updateWithGameState.bind(this))
+    this.scene.get('Game').data.get('gameState').onTimeChange(this.updateWithGameState.bind(this))
+  }
+
+  updateWithGameState (gameState) {
+    if (gameState.time !== this.timeRemaining) {
+      this.timeRemaining = gameState.time
+      this.setTimerText(this.timeRemaining)
+    }
+    if (gameState.score !== this.score) {
+      this.score = gameState.score
+      this.setScoreText(this.score)
+    }
   }
 
   setTimerText (time) {
@@ -120,8 +122,16 @@ export class ScoreOverlay extends BaseScene {
     }
   }
 
+  /**
+   * @param score {number}
+   */
   setScoreText (score) {
-    const paddedString = score.toString().padStart(5, '0')
-    this.scoreText.setText(paddedString)
+    if (this.scoreText !== null) {
+      let scoreString = score.toString()
+      if (score >= 0) {
+        scoreString = score.toString().padStart(5, '0')
+      }
+      this.scoreText.setText(scoreString)
+    }
   }
 }
