@@ -73,7 +73,7 @@ export class Game extends BaseScene {
         if (this.scene.get('ScoreOverlay')) {
             this.scene.remove('ScoreOverlay')
         }
-        this.scene.add('ScoreOverlay', ScoreOverlay, true, {time: 99});
+        this.scene.add('ScoreOverlay', ScoreOverlay, true, {time: 100});
 
         this.data.events.addListener('changedata', () => {
             this.children.getAll().forEach((child) => {
