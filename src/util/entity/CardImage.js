@@ -25,11 +25,20 @@ export class CardImage extends Phaser.GameObjects.Image {
   onClickDown(id, {element, count, color, level}) {
     console.log('pointerdown image')
     console.log(this.scene.children.getAt(id+1).getData("state"))
-    this.setScale(1.1)
-    //send data to state
+    this.setY(this.y-7)
+    selectCard({id: id, data: {element, count, color, level}})
   }
 
   onClickUp(id) {
     console.log('pointerup image')
+  }
+
+  isSelected(state) {
+    if (state) {
+      this.setY(this.y-7)
+    } else {
+      this.setY(this.y+7)
+    }
+    this.setActive(state)
   }
 }

@@ -18,6 +18,7 @@ export class Game extends Phaser.Game {
         Background,
         Menu,
         Tutorial,
+        GameScene,
       ]
     })
   }
