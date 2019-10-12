@@ -9,8 +9,8 @@ export class GameState {
     constructor({time}) {
         this.time = time;
         this.lives = LIVES;
-        this.clickedCards = new Set();
-        this.newDeck = false;
+        this.clickedCards = new Map();
+        this.newDeck = true;
         this.score = 0;
     }
 
@@ -27,27 +27,35 @@ export class GameState {
     }
 
     getSelectedCards() {
-        return Array.from(this.clickedCards);
+        return Array.from(this.clickedCards).map(([id, card]) => {
+            return {id: id, data: card};
+        });
     }
 
     isGameOver() {
         return this.time > 0;
     }
 
-    toggleCard(card) {
-        if (this.clickedCards.has(card)) {
-            this.clickedCards.delete(card);
+    toggleCard({id, data}) {
+        if (this.clickedCards.has(id)) {
+            this.clickedCards.delete(id);
         } else {
-            this.clickedCards.add(card);
+            this.clickedCards.set(id, data);
 
-            if (set.length === 3) {
-                if (isValidSet(...this.clickedCards.map(card => { return card.data}))) {
+            if (this.clickedCards.size === 3) {
+
+                let cards = Array.from(this.clickedCards).map(([_, data]) => {
+                   return data;
+                });
+
+                if (isValidSet(...cards)) {
                     this.score += POINTS_PER_SET;
                     this.clickedCards.clear();
                     this.newDeck = true;
                 } else {
                     this.time -= TIME_LOSS_PER_FAILURE;
                     this.lives -= 1;
+                    this.clickedCards.clear();
 
                     if (this.lives === 0) {
                         this.lives = LIVES;
