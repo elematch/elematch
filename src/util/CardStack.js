@@ -1,9 +1,9 @@
-import {Card} from "./entity/Card";
+import {CardData} from "./entity/CardData";
 
 /**
  * Get all available cards as array.
  *
- * @returns {Card[]}
+ * @returns {CardData[]}
  */
 let generateCardDeck = () => {
     let cards = [];
@@ -11,7 +11,7 @@ let generateCardDeck = () => {
     for (let i = 1; i <= 3; i++) {
         for (let j = 1; j <= 3; j++) {
             for (let k = 1; k <= 3; k++) {
-                cards.push(new Card({
+                cards.push(new CardData({
                     element: i,
                     count: j,
                     color: k,
@@ -31,7 +31,7 @@ let generateCardDeck = () => {
  * @param card1
  * @param card2
  * @param stack
- * @returns {Card | boolean}
+ * @returns {CardData | boolean}
  */
 let getLastCardForSet = (card1, card2, stack) => {
   let cards = stack.filter(elem => {
@@ -62,7 +62,7 @@ export let isValidSet = (card1, card2, card3) => {
  * Get a set of 3 cards from the given stack. If the stack doesn't contain a set, the function returns false.
  *
  * @param stack
- * @returns {boolean|Card[]}
+ * @returns {boolean|CardData[]}
  */
 let getSetFromStack = (stack) => {
     let card1 = stack.shift();
@@ -91,7 +91,7 @@ export class CardStack {
      * Get a shuffled deck of cards that contains at least one set. If it is not possible to create such a deck with the
      * current card stack, the stack is regenerated.
      *
-     * @returns {Card[]}
+     * @returns {CardData[]}
      */
     getDeck() {
         let deck = getSetFromStack(this.cards);

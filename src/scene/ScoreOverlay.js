@@ -44,6 +44,7 @@ export class ScoreOverlay extends BaseScene {
     this.load.image('refreshButtonActive', refreshButtonActive)
     this.load.image('scoreField', scoreField)
     this.load.image('timerField', timerField)
+    this.load.multiatlas('coin', "src/assets/images/coin/coin.json", "src/assets/images/coin")
   }
 
   init ({ time }) {
@@ -61,6 +62,20 @@ export class ScoreOverlay extends BaseScene {
     this.createTimerText()
     this.createScoreText()
     this.createRefreshButton()
+    this.createScoreCoin()
+  }
+
+  createScoreCoin () {
+    let coin = this.add.sprite(SCORE.X+10, SCORE.Y+35, 'coin', "src/assets/images/coin/coin.png");
+    coin.setScale(1, 1);
+
+    let frameNames = this.anims.generateFrameNames('coin', {
+      start: 1, end: 8, zeroPad: 2,
+      prefix: 'coin', suffix: '.png'
+    });
+
+    this.anims.create({ key: 'spin', frames: frameNames, frameRate: 10, repeat: -1 });
+    coin.anims.play('spin');
   }
 
   createTimerText () {

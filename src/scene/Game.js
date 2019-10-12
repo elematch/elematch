@@ -1,10 +1,11 @@
 import {BaseScene} from './BaseScene'
 import {CardImage} from '../util/entity/CardImage'
-import cardImg from '../assets/images/card.png'
 import {CardStack} from '../util/CardStack'
 import {ScoreOverlay} from './ScoreOverlay'
 import {GameState} from "../util/GameState";
-import {getTextureNameForCard} from "../util/entity/Card";
+import {getTextureNameForCard} from "../util/entity/CardData";
+import cardImg from '../assets/images/card.png'
+import { Card } from '../util/entity/Card'
 
 export class Game extends BaseScene {
     constructor() {
@@ -78,8 +79,11 @@ export class Game extends BaseScene {
             let deck = cardStack.getDeck();
 
             deck.forEach((e, i) => {
-                let card = new CardImage({scene: this, x: pos[i][0], y: pos[i][1], image: getTextureNameForCard(e), id: i, ...e})
-                this.children.add(card)
+                let cardBase = new Card({scene: this, x: pos[i][0], y: pos[i][1], image: "card", id: i})
+                let cardImage = new CardImage({scene: this, x: pos[i][0], y: pos[i][1], image: getTextureNameForCard(e), id: i, ...e})
+
+                this.children.add(cardBase)
+                this.children.add(cardImage)
             });
 
             this.data.get("gameState").newDeck = false;
