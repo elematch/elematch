@@ -4,6 +4,7 @@ import cardImg from '../assets/images/card.png'
 import {CardStack} from '../util/CardStack'
 import {ScoreOverlay} from './ScoreOverlay'
 import {GameState} from "../util/GameState";
+import {getTextureNameForCard} from "../util/entity/Card";
 
 export class Game extends BaseScene {
     constructor() {
@@ -12,8 +13,25 @@ export class Game extends BaseScene {
         })
     }
 
+    preloadCardImages () {
+        const importAll = (require) => {
+            const imagePaths = require.keys()
+            const images = require.keys().map(require)
+
+            const phaserImageKeys = imagePaths.map((imagePath) => {
+                const fileName = imagePath.substr(2)
+                return fileName.substring(0, fileName.length - 4)
+            })
+            for (let i = 0; i < images.length; i++) {
+                this.load.image(phaserImageKeys[i], images[i])
+            }
+        }
+        importAll(require.context('../assets/images/cards', false, /\.(png|jpe?g|svg)$/))
+        this.load.image('card', cardImg)
+    }
+
     preload() {
-        this.load.image("card", cardImg)
+        this.preloadCardImages();
     }
 
     create() {
@@ -60,7 +78,7 @@ export class Game extends BaseScene {
             let deck = cardStack.getDeck();
 
             deck.forEach((e, i) => {
-                let card = new CardImage({scene: this, x: pos[i][0], y: pos[i][1], image: "card", id: i, ...e})
+                let card = new CardImage({scene: this, x: pos[i][0], y: pos[i][1], image: getTextureNameForCard(e), id: i, ...e})
                 this.children.add(card)
             });
 
