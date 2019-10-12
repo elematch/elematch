@@ -11,14 +11,12 @@ let generateCardDeck = () => {
     for (let i = 1; i <= 3; i++) {
         for (let j = 1; j <= 3; j++) {
             for (let k = 1; k <= 3; k++) {
-                for (let m = 1; m <= 3; m++) {
-                    cards.push(new Card({
-                        element: i,
-                        count: j,
-                        color: k,
-                        level: m
-                    }))
-                }
+                cards.push(new Card({
+                    element: i,
+                    count: j,
+                    color: k,
+                    level: 1
+                }))
             }
         }
     }
