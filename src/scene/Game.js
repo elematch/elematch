@@ -1,69 +1,70 @@
-import { BaseScene } from './BaseScene'
-import { CardImage } from '../util/entity/CardImage'
+import {BaseScene} from './BaseScene'
+import {CardImage} from '../util/entity/CardImage'
 import cardImg from '../assets/images/card.png'
-import { CardStack } from '../util/CardStack'
-import { ScoreOverlay } from './ScoreOverlay'
+import {CardStack} from '../util/CardStack'
+import {ScoreOverlay} from './ScoreOverlay'
+import {GameState} from "../util/GameState";
 
 export class Game extends BaseScene {
-  constructor () {
-    super({
-      key: 'Game',
-    })
-  }
-
-  preload () {
-    this.load.image("card", cardImg)
-  }
-
-  create () {
-
-    if (this.scene.get('ScoreOverlay')) {
-      this.scene.remove('ScoreOverlay')
+    constructor() {
+        super({
+            key: 'Game',
+        })
     }
-    let scene = this.scene.add('ScoreOverlay', ScoreOverlay, true, { time: 99 })
 
-    this.scene.get('ScoreOverlay').events.on('test', (data) => {
-      console.log('got data from test event', data)
-    })
+    preload() {
+        this.load.image("card", cardImg)
+    }
 
-    this.data.events.addListener('changedata', () => {
-      console.log('changedata')
-      console.log(this.data.getAll())
-      this.children.getAt()
-    })
+    create() {
+        let gameState = new GameState({time: 100});
+        this.data.set("gameState", gameState);
+        gameState.startTimer();
 
-    //card 130 x 170
-    let pos = [
-      [400, 130],
-      [540, 130],
-      [680, 130],
-      [820, 130],
-      [400, 310],
-      [540, 310],
-      [680, 310],
-      [820, 310],
-      [400, 490],
-      [540, 490],
-      [680, 490],
-      [820, 490],
-    ]
+        if (this.scene.get('ScoreOverlay')) {
+            this.scene.remove('ScoreOverlay')
+        }
+        this.scene.add('ScoreOverlay', ScoreOverlay, true, {time: 99});
 
-    let deck = new CardStack
-    deck = deck.getDeck()
+        this.data.events.addListener('changedata', () => {
+            this.children.getAll().forEach((child) => {
+                if (child.active) {
+                    child.setSelected(false);
+                }
+            });
 
-    deck.forEach((e, i) => {
-      console.log(e)
-      let card = new CardImage({scene: this,x: pos[i][0], y: pos[i][1], image: "card", id: i, ...e})
-      this.children.add(card)
-      /*this.tweens.add({
-        targets: card,
-        x: card.x-2,
-        y: card.y-2,
-        duration: 300,
-        ease: 'Power2',
-        yoyo: true,
-        loop: -1,
-      });*/
-    })
-  }
+            gameState.getSelectedCards().forEach((card) => {
+                this.children.getAt(card.id).setSelected(true);
+            })
+        });
+
+        //card 130 x 170
+        let pos = [
+            [400, 130],
+            [540, 130],
+            [680, 130],
+            [820, 130],
+            [400, 310],
+            [540, 310],
+            [680, 310],
+            [820, 310],
+            [400, 490],
+            [540, 490],
+            [680, 490],
+            [820, 490],
+        ];
+
+        let cardStack = new CardStack();
+
+        if (this.data.get("gameState").newDeck) {
+            let deck = cardStack.getDeck();
+
+            deck.forEach((e, i) => {
+                let card = new CardImage({scene: this, x: pos[i][0], y: pos[i][1], image: "card", id: i, ...e})
+                this.children.add(card)
+            });
+
+            this.data.get("gameState").newDeck = false;
+        }
+    }
 }
