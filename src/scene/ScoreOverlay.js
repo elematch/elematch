@@ -52,6 +52,7 @@ export class ScoreOverlay extends BaseScene {
     this.load.image('refreshButtonActive', refreshButtonActive)
     this.load.image('scoreField', scoreField)
     this.load.image('timerField', timerField)
+    this.load.multiatlas('coin', "src/assets/images/coin/coin.json", "src/assets/images/coin")
     this.load.image('indicatorBar1', indicatorBar1)
     this.load.image('indicatorBar2', indicatorBar2)
     this.load.image('indicatorBar3', indicatorBar3)
@@ -76,6 +77,20 @@ export class ScoreOverlay extends BaseScene {
     this.createRefreshButton()
     this.subscribeToStateChange()
     this.createLifeBar()
+    this.createScoreCoin()
+  }
+
+  createScoreCoin () {
+    let coin = this.add.sprite(SCORE.X+10, SCORE.Y+35, 'coin', "src/assets/images/coin/coin.png");
+    coin.setScale(1, 1);
+
+    let frameNames = this.anims.generateFrameNames('coin', {
+      start: 1, end: 8, zeroPad: 2,
+      prefix: 'coin', suffix: '.png'
+    });
+
+    this.anims.create({ key: 'spin', frames: frameNames, frameRate: 10, repeat: -1 });
+    coin.anims.play('spin');
   }
 
   createTimerText () {
