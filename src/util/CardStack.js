@@ -59,6 +59,23 @@ export let isValidSet = (card1, card2, card3) => {
 };
 
 /**
+ * Calculates the difficulty of the given set. Each property with 3 different values increases the difficulty by one up
+ * to a maximum of 3
+ *
+ * @param card1
+ * @param card2
+ * @param card3
+ * @returns {number}
+ */
+export let getSetDifficulty = (card1, card2, card3) => {
+    return ["element", "count", "color"].map(property => {
+        return card1[property] === card2[property] && card1[property] === card3[property] ? 0 : 1;
+    }).reduce((previous, current) => {
+        return previous + current;
+    }, 0);
+};
+
+/**
  * Get a set of 3 cards from the given stack. If the stack doesn't contain a set, the function returns false.
  *
  * @param stack

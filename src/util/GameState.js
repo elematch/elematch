@@ -1,6 +1,6 @@
-import {isValidSet} from "./CardStack";
+import {getSetDifficulty, isValidSet} from "./CardStack";
 
-const POINTS_PER_SET = 10;
+const DIFFICULTY_SCORE_MULTIPLIER = 10;
 const TIME_LOSS_PER_FAILURE = 5;
 const LIVES = 5;
 const POINT_LOSS_ON_MISSING_LIVES = 20;
@@ -67,7 +67,7 @@ export class GameState {
 
                 if (isValidSet(...cards)) {
                     this.lastSelectionSuccess = true;
-                    this.score += POINTS_PER_SET;
+                    this.score += getSetDifficulty(...cards) * DIFFICULTY_SCORE_MULTIPLIER;
                     this.clickedCards.clear();
                     this.newDeck = true;
                 } else {
