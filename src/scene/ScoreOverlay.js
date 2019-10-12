@@ -1,4 +1,8 @@
 import { BaseScene } from './BaseScene'
+import refreshButton from '../assets/images/buttons/button-refresh.png'
+import refreshButtonActive from '../assets/images/buttons/button-refresh-active.png'
+import { TwoStateButton } from '../Buttons/TwoStateButton'
+import card from '../assets/images/card.png'
 
 const FONT_SIZE = 60
 const TEXT_COLOR = '#000'
@@ -14,11 +18,10 @@ const SCORE = {
   Y: TEXT_Y
 }
 
+// add half of width and length, since position is relative to the center of the image
 const BUTTON = {
-  X: 762,
-  Y: 615,
-  WIDTH: 130,
-  HEIGHT: 80
+  X: 762 + 65,
+  Y: 615 + 40,
 }
 
 const BUTTON_STYLE = {
@@ -41,6 +44,9 @@ export class ScoreOverlay extends BaseScene {
   }
 
   preload () {
+    this.load.image('card', card)
+    this.load.image('refreshButton', refreshButton)
+    this.load.image('refreshButtonActive', refreshButtonActive)
   }
 
   init ({ time }) {
@@ -55,7 +61,7 @@ export class ScoreOverlay extends BaseScene {
   create () {
     this.createTimerText()
     this.createScoreText()
-    this.createBackButton()
+    this.createRefreshButton()
   }
 
   createTimerText () {
@@ -78,20 +84,19 @@ export class ScoreOverlay extends BaseScene {
     this.setScoreText(this.score)
   }
 
-  createBackButton () {
-    const backButton = this.add.text(BUTTON.X, BUTTON.Y, 'BACK', {
-      ...BUTTON_STYLE,
-      fixedWidth: BUTTON.WIDTH,
-      fixedHeight: BUTTON.HEIGHT,
-      color: '#fff',
-      backgroundColor: '#000'
-    })
-    backButton.setInteractive({ useHandCursor: true })
-    backButton.on('pointerdown', () => {
-      // TODO: clear time in state, etc, etc
-      this.scene.start('Menu')
-      console.log('start new scene')
-    })
+  createRefreshButton () {
+    const button = new TwoStateButton(
+      this,
+      BUTTON.X,
+      BUTTON.Y,
+      'refreshButton',
+      {
+        texturePressed: 'refreshButtonActive',
+        onClick: () => { console.log('TODO: reset scene') }
+      }
+    )
+    button.setInteractive({ useHandCursor: true })
+    this.children.add(button)
   }
 
   subscribeToStateChange () {
