@@ -13,11 +13,26 @@ export class GameState {
         this.newDeck = true;
         this.score = 0;
         this.lastSelectionSuccess = null;
+        this.onTimeChangeCallbacks = []
+    }
+
+    onTimeChange (callBack) {
+        this.onTimeChangeCallbacks.push(callBack)
+    }
+
+    emitTimeChange () {
+        this.onTimeChangeCallbacks.forEach((callback) => {
+            if (typeof callback !== 'function') {
+                return
+            }
+            callback(this)
+        })
     }
 
     startTimer() {
         this.timerHandle = setInterval(() => {
             this.time--;
+            this.emitTimeChange()
         }, 1000);
     }
 
@@ -64,6 +79,7 @@ export class GameState {
                         this.lives = LIVES;
                         this.score -= POINT_LOSS_ON_MISSING_LIVES;
                     }
+                    this.emitTimeChange()
                 }
                 console.log(this);
             }
