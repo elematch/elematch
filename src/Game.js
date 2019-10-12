@@ -6,6 +6,7 @@ import { Background } from './scene/Background'
 import { Tutorial } from './scene/Tutorial'
 import { ScoreOverlay } from './scene/ScoreOverlay'
 import { Tutorial2 } from './scene/Tutorial2'
+import { GameOver } from './scene/GameOver'
 
 export class Game extends Phaser.Game {
   constructor () {
@@ -21,6 +22,7 @@ export class Game extends Phaser.Game {
         Tutorial,
         Tutorial2,
         GameScene,
+        GameOver
       ]
     })
   }
