@@ -1,6 +1,5 @@
 import { BaseScene } from './BaseScene'
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../constants/game'
-import ingameBackground from '../assets/images/ingame.png'
 
 const FONT_SIZE = 60
 const TEXT_COLOR = '#000'
@@ -44,7 +43,6 @@ export class ScoreOverlay extends BaseScene {
   }
 
   preload () {
-    this.load.image('ingameBackground', ingameBackground)
   }
 
   init ({ time }) {
@@ -58,7 +56,6 @@ export class ScoreOverlay extends BaseScene {
   }
 
   create () {
-    this.add.image(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 'ingameBackground')
     this.createTimerText()
     this.createScoreText()
     this.createBackButton()
