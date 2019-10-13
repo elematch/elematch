@@ -4,11 +4,12 @@
   "description": "A Phaser 3 Project Template",
   "main": "src/index.js",
   "scripts": {
-    "build": "webpack --env.production --config webpack/prod.js ",
+    "build": "webpack --config webpack/prod.js ",
     "start": "webpack-dev-server --config webpack/base.js --open",
-    "postbuild": "npm run copycss && npm run copyfonts",
+    "postbuild": "npm run copycss && npm run copyfonts && npm run copycoin",
     "copycss": "mkdir -p ./dist/src/assets/css && cp ./src/assets/css/style.css ./dist/src/assets/css/",
-    "copyfonts": "mkdir -p ./dist/src/assets/fonts/disposabledroid-bb && cp ./src/assets/fonts/disposabledroid-bb/DisposableDroidBB.ttf ./dist/src/assets/fonts/disposabledroid-bb/"
+    "copyfonts": "mkdir -p ./dist/src/assets/fonts/disposabledroid-bb && cp ./src/assets/fonts/disposabledroid-bb/DisposableDroidBB.ttf ./dist/src/assets/fonts/disposabledroid-bb/",
+    "copycoin": "mkdir -p ./dist/src/assets/images/coin && cp -R ./src/assets/images/coin/ ./dist/src/assets/images/coin/"
   },
   "repository": {
     "type": "git",
