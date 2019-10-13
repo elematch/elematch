@@ -15,6 +15,7 @@ export class GameState {
         this.score = 0;
         this.lastSelectionSuccess = null;
         this.onTimeChangeCallbacks = []
+        this.selectedSets = []
     }
 
     onTimeChange (callBack) {
@@ -86,6 +87,8 @@ export class GameState {
                     this.lastSelectionSuccess = true;
                     this.score += getSetDifficulty(...cards) * DIFFICULTY_SCORE_MULTIPLIER;
                     this.newDeck = true;
+                    const selectedSet = [...this.getSelectedCards()]
+                    this.selectedSets.push(selectedSet)
                 } else {
                     this.lastSelectionSuccess = false;
                     this.time -= TIME_LOSS_PER_FAILURE;
