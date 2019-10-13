@@ -10,8 +10,8 @@ const COLOR = {
   3: "yellow"
 };
 
-export let getTextureNameForCard = (card) => {
-  return ELEMENT[card.element] + "-" + COLOR[card.color] + "-" + card.count;
+export let getTextureNameForCard = (card, variant = "half") => {
+  return ELEMENT[card.element] + "-" + COLOR[card.color] + "-" + card.count + "-" + variant;
 };
 
 export class Card {
