@@ -62,6 +62,14 @@ export class GameState {
         this.lastSelectionSuccess = null
     }
 
+    onRefresh() {
+        if (this.lives > 1) {
+            this.lives--;
+            this.newDeck = true;
+            this.resetSelectedCards()
+        }
+    }
+
     toggleCard({id, data}) {
         if (this.clickedCards.has(id)) {
             this.clickedCards.delete(id);
@@ -77,7 +85,6 @@ export class GameState {
                 if (isValidSet(...cards)) {
                     this.lastSelectionSuccess = true;
                     this.score += getSetDifficulty(...cards) * DIFFICULTY_SCORE_MULTIPLIER;
-                    //this.clickedCards.clear();
                     this.newDeck = true;
                 } else {
                     this.lastSelectionSuccess = false;

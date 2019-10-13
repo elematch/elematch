@@ -120,21 +120,18 @@ export class ScoreOverlay extends BaseScene {
       'refreshButton',
       {
         texturePressed: 'refreshButtonActive',
-        onClick: () => {
-          let scene = this.scene.get('Game');
-          const gameState = scene.data.get('gameState');
-
-          if (gameState.lives > 1) {
-            gameState.lives--;
-            gameState.newDeck = true;
-          }
-
-          scene.events.emit("changedata", gameState);
-        }
+        onClick: this.onClick.bind(this)
       }
     )
     button.setInteractive({ useHandCursor: true })
     this.children.add(button)
+  }
+
+  onClick() {
+    let scene = this.scene.get('Game');
+    const gameState = scene.data.get('gameState');
+    gameState.onRefresh()
+    scene.events.emit("changedata", gameState);
   }
 
   subscribeToStateChange () {
