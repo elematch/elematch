@@ -45,6 +45,7 @@ export class LastMatch extends BaseScene {
   }
 
   createCards (cardsData) {
+    cardsData = [...cardsData].sort(((data1, data2) => data1.count - data2.count))
     const cardImageNames = cardsData.map((data) => getTextureNameForCardObjectLiteral(data))
 
     cardImageNames.forEach((imageName, index) => {
