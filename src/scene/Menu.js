@@ -30,6 +30,7 @@ export class Menu extends BaseScene {
 
   create () {
     this.add.image(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 'startBackground')
+    this.createInvisibleFontLoaderText()
     this.addStartButton()
     this.addTutorialButton()
   }
@@ -68,5 +69,10 @@ export class Menu extends BaseScene {
 
   switchToTutorialScene () {
     this.scene.start('Tutorial')
+  }
+
+  createInvisibleFontLoaderText () {
+    const text = this.add.text(0,0, ':O', { font: `${40}px DisposableDroid` })
+    text.setVisible(false)
   }
 }
