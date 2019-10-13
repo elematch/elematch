@@ -1,8 +1,12 @@
 import { BaseScene } from './BaseScene'
-import cardImg from '../assets/images/card.png'
 import { CardStack } from '../util/CardStack'
 import { CardImage } from '../util/entity/CardImage'
 import { getTextureNameForCard } from '../util/entity/Card'
+
+import select1Sound from '../assets/sounds/select-1.wav'
+import select2Sound from '../assets/sounds/select-2.wav'
+import select3Sound from '../assets/sounds/select-3.wav'
+import selectFailSound from  '../assets/sounds/select-fail.wav'
 
 export class CardGrid extends BaseScene {
   constructor () {
@@ -31,12 +35,10 @@ export class CardGrid extends BaseScene {
       }
     };
     importAll(require.context('../assets/images/cards', false, /\.(png|jpe?g|svg)$/))
-    this.load.image('card', cardImg)
-    this.load.image('particle', 'src/assets/images/particles/yellow.png');
-    this.load.audio('select1Sound', 'src/assets/sounds/select-1.wav')
-    this.load.audio('select2Sound', 'src/assets/sounds/select-2.wav')
-    this.load.audio('select3Sound', 'src/assets/sounds/select-3.wav')
-    this.load.audio('selectFailSound', 'src/assets/sounds/select-fail.wav')
+    this.load.audio('select1Sound', select1Sound)
+    this.load.audio('select2Sound', select2Sound)
+    this.load.audio('select3Sound', select3Sound)
+    this.load.audio('selectFailSound', selectFailSound)
   }
 
   placeDeck () {
