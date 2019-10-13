@@ -9,9 +9,9 @@ import indicatorBar3 from '../assets/images/indicator-bar/indicatorbar-3.png'
 import indicatorBar4 from '../assets/images/indicator-bar/indicatorbar-4.png'
 import indicatorBar5 from '../assets/images/indicator-bar/indicatorbar-5.png'
 import { TwoStateButton } from '../Buttons/TwoStateButton'
-import card from '../assets/images/card.png'
 import { LifeBar } from '../util/entity/LifeBar'
 import { SCREEN_HEIGHT } from '../constants/game'
+import coinAtlas from '../assets/images/coin/coin.json'
 
 const FONT_SIZE = 60
 const TEXT_COLOR = '#000'
@@ -51,7 +51,10 @@ export class ScoreOverlay extends BaseScene {
     this.load.image('refreshButtonActive', refreshButtonActive)
     this.load.image('scoreField', scoreField)
     this.load.image('timerField', timerField)
-    this.load.multiatlas('coin', "src/assets/images/coin/coin.json", "src/assets/images/coin")
+
+    const coinImages = process.env["NODE_ENV"] === "prod" ? "./sprites/coin" : "src/assets/images/coin";
+    this.load.multiatlas('coin', coinAtlas, coinImages)
+
     this.load.image('indicatorBar1', indicatorBar1)
     this.load.image('indicatorBar2', indicatorBar2)
     this.load.image('indicatorBar3', indicatorBar3)
