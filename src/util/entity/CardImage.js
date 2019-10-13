@@ -1,6 +1,6 @@
 export class CardImage extends Phaser.GameObjects.Image {
   constructor ({ scene, x, y, image, id, element, count, color, level }) {
-    super(scene, x, y, image, id, element, count, color, level);
+    super(scene, x, y, image);
     this.element = element;
     this.count = count;
     this.color = color;
