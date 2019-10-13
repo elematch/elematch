@@ -13,12 +13,6 @@ export class Tutorial extends BaseScene {
     })
   }
 
-  preload () {
-    this.load.image('tutorial1Image', backgroundImage)
-    this.load.image('nextButton', nextButton)
-    this.load.image('nextButtonActive', nextButtonActive)
-  }
-
   create () {
     this.add.image(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 'tutorial1Image')
     this.addNextButton()

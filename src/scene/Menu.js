@@ -11,17 +11,8 @@ export class Menu extends BaseScene {
   constructor (config) {
     super({
       key: 'Menu',
-      active: true,
       ...config
     })
-  }
-
-  preload () {
-    this.load.image('buttonNewgame', buttonNewgame)
-    this.load.image('buttonNewgameActive', buttonNewgameActive)
-    this.load.image('buttonTutorial', buttonTutorial)
-    this.load.image('buttonTutorialActive', buttonTutorialActive)
-    this.load.image('startBackground', startBackground)
   }
 
   init () {

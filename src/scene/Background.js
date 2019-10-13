@@ -11,14 +11,6 @@ export class Background extends BaseScene {
     })
   }
 
-  preload () {
-    this.preloadBackground()
-  }
-
-  preloadBackground () {
-    this.load.image('background', background)
-  }
-
   create () {
     this.createBackground()
   }

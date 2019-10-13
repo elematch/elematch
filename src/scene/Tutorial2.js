@@ -1,5 +1,4 @@
 import { BaseScene } from './BaseScene'
-import backgroundImage from '../assets/images/tutorial-2.png'
 import playButton from '../assets/images/buttons/button-playnow.png'
 import playButtonActive from '../assets/images/buttons/button-playnow-active.png'
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../constants/game'
@@ -11,12 +10,6 @@ export class Tutorial2 extends BaseScene {
       key: 'Tutorial2',
       ...props
     })
-  }
-
-  preload () {
-    this.load.image('tutorial2Image', backgroundImage)
-    this.load.image('playButton', playButton)
-    this.load.image('playButtonActive', playButtonActive)
   }
 
   create () {
