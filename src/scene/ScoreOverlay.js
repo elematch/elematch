@@ -47,7 +47,6 @@ export class ScoreOverlay extends BaseScene {
   }
 
   preload () {
-    this.load.image('card', card)
     this.load.image('refreshButton', refreshButton)
     this.load.image('refreshButtonActive', refreshButtonActive)
     this.load.image('scoreField', scoreField)
