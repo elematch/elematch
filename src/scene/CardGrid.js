@@ -60,9 +60,8 @@ export class CardGrid extends BaseScene {
     ];
 
     deck.forEach((e, i) => {
-      const gameScene = this.scene.get('Game')
       let card = new CardImage({
-        scene: gameScene,
+        scene: this,
         x: pos[i][0],
         y: pos[i][1],
         image: getTextureNameForCard(e),
@@ -126,7 +125,7 @@ export class CardGrid extends BaseScene {
           music1.play()
         }
 
-        if (gameState.lastSelectionSuccess === false) {
+        if (gameState.lastSelectionSuccess === false && gameState.getSelectedCards().length === 0) {
           let musicFail = this.sound.add('selectFailSound');
           musicFail.play()
           this.children.getAt(card.id).noMatchAnimation()

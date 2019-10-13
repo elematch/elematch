@@ -20,8 +20,9 @@ export class CardImage extends Phaser.GameObjects.Image {
   }
 
   onClickDown(card) {
-    this.scene.data.get("gameState").toggleCard(card);
-    this.scene.events.emit("changedata", this.scene.data.get("gameState"));
+    const gameScene = this.scene.scene.get("Game")
+    gameScene.data.get("gameState").toggleCard(card);
+    gameScene.events.emit("changedata", gameScene.data.get("gameState"));
   }
 
   setSelected(state) {
