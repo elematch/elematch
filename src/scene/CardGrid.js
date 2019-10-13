@@ -64,7 +64,7 @@ export class CardGrid extends BaseScene {
         scene: this,
         x: pos[i][0],
         y: pos[i][1],
-        image: getTextureNameForCard(e),
+        image: getTextureNameForCard(e, "half"),
         id: i, ...e
       });
       card.active = false;

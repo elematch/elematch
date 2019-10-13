@@ -1,3 +1,5 @@
+import { getTextureNameForCard } from './Card'
+
 export class CardImage extends Phaser.GameObjects.Image {
   constructor ({ scene, x, y, image, id, element, count, color, level }) {
     super(scene, x, y, image);
@@ -27,9 +29,9 @@ export class CardImage extends Phaser.GameObjects.Image {
 
   setSelected(state) {
     if (state) {
-      this.setY(this.y-7)
+      this.setTexture(getTextureNameForCard(this, "full"))
     } else {
-      this.setY(this.y+7)
+      this.setTexture(getTextureNameForCard(this, "half"))
     }
     this.setActive(state)
   }
