@@ -16,7 +16,7 @@ import { SCREEN_HEIGHT } from '../constants/game'
 const FONT_SIZE = 60
 const TEXT_COLOR = '#000'
 
-const TEXT_Y = 618
+export const TEXT_Y = 618
 const TIMER = {
   X: 580,
   Y: TEXT_Y

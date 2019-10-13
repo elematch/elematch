@@ -1,6 +1,6 @@
 import {getSetDifficulty, isValidSet} from "./CardStack";
 
-const DIFFICULTY_SCORE_MULTIPLIER = 10;
+export const DIFFICULTY_SCORE_MULTIPLIER = 10;
 const TIME_LOSS_PER_FAILURE = 5;
 const LIVES = 5;
 const POINT_LOSS_ON_MISSING_LIVES = 20;
