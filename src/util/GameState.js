@@ -6,7 +6,7 @@ const LIVES = 5;
 const POINT_LOSS_ON_MISSING_LIVES = 20;
 
 export class GameState {
-    constructor({time}) {
+    constructor({scene, time}) {
         this.initialTime = time;
         this.time = time;
         this.lives = LIVES;
@@ -30,6 +30,10 @@ export class GameState {
         })
     }
 
+    removeAllListeners () {
+        this.onTimeChangeCallbacks = []
+    }
+
     startTimer() {
         this.timerHandle = setInterval(() => {
             this.time--;
@@ -50,7 +54,7 @@ export class GameState {
     }
 
     isGameOver() {
-        return this.time > 0;
+        return this.time <= 0;
     }
 
     toggleCard({id, data}) {
@@ -73,6 +77,7 @@ export class GameState {
                 } else {
                     this.lastSelectionSuccess = false;
                     this.time -= TIME_LOSS_PER_FAILURE;
+                    this.time = Math.max(this.time, 0)
                     this.lives -= 1;
                     this.clickedCards.clear();
 

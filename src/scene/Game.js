@@ -5,6 +5,7 @@ import {CardStack} from '../util/CardStack'
 import {ScoreOverlay} from './ScoreOverlay'
 import {GameState} from "../util/GameState";
 import {getTextureNameForCard} from "../util/entity/Card";
+import { GAME_TIME } from '../constants/game'
 
 export class Game extends BaseScene {
     constructor() {
@@ -99,16 +100,17 @@ export class Game extends BaseScene {
     }
 
     create() {
-        let gameState = new GameState({time: 100});
+        let gameState = new GameState({time: GAME_TIME});
         this.data.set("gameState", gameState);
         gameState.startTimer();
 
         if (this.scene.get('ScoreOverlay')) {
             this.scene.remove('ScoreOverlay')
         }
-        this.scene.add('ScoreOverlay', ScoreOverlay, true, {time: 100});
+        this.scene.add('ScoreOverlay', ScoreOverlay, true, {time: GAME_TIME});
 
-        this.data.events.addListener('changedata', () => {
+        this.subscribeToTimeChange()
+        this.data.events.addListener('changedata', (gameData) => {
             this.children.getAll().forEach((child) => {
                 if (child.active) {
                     child.setSelected(false);
@@ -125,7 +127,6 @@ export class Game extends BaseScene {
                     music1.play()
                 }
 
-
                 if (gameState.lastSelectionSuccess === false) {
                     let musicFail = this.sound.add('selectFailSound');
                     musicFail.play()
@@ -141,5 +142,26 @@ export class Game extends BaseScene {
         });
 
         this.placeDeck();
+    }
+
+    subscribeToTimeChange () {
+        this.data.get('gameState').onTimeChange((gameState) => {
+            if (gameState.isGameOver()) {
+                this.endGame()
+            }
+        })
+    }
+
+    removeAllListeners () {
+        let gameState = this.data.get('gameState')
+        gameState.stopTimer()
+        gameState.removeAllListeners()
+        this.data.events.removeAllListeners()
+    }
+
+    endGame () {
+        this.removeAllListeners()
+        this.scene.remove('ScoreOverlay')
+        this.scene.start('GameOver', { finalScore: 100 })
     }
 }
