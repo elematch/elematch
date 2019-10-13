@@ -24,7 +24,7 @@ Run the development server
 git clone git@github.com:elematch/elemettch.git
 cd elemettch
 npm install
-npm run build
+npm run start
 ```
 
 ### Docker
