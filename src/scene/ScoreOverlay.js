@@ -11,7 +11,7 @@ import indicatorBar5 from '../assets/images/indicator-bar/indicatorbar-5.png'
 import { TwoStateButton } from '../Buttons/TwoStateButton'
 import { LifeBar } from '../util/entity/LifeBar'
 import { SCREEN_HEIGHT } from '../constants/game'
-import coinAtlas from '../assets/images/coin/coin.json'
+import coin from '../assets/images/coin/coin01.png'
 
 const FONT_SIZE = 60
 const TEXT_COLOR = '#000'
@@ -51,9 +51,10 @@ export class ScoreOverlay extends BaseScene {
     this.load.image('refreshButtonActive', refreshButtonActive)
     this.load.image('scoreField', scoreField)
     this.load.image('timerField', timerField)
+    this.load.image('coin', coin)
 
-    const coinImages = process.env["NODE_ENV"] === "prod" ? "./sprites/coin" : "src/assets/images/coin";
-    this.load.multiatlas('coin', coinAtlas, coinImages)
+    // const coinImages = process.env["NODE_ENV"] === "prod" ? "./sprites/coin" : "src/assets/images/coin";
+    // this.load.multiatlas('coin', coinAtlas, coinImages)
 
     this.load.image('indicatorBar1', indicatorBar1)
     this.load.image('indicatorBar2', indicatorBar2)
@@ -82,16 +83,17 @@ export class ScoreOverlay extends BaseScene {
   }
 
   createScoreCoin () {
-    let coin = this.add.sprite(SCORE.X+10, SCORE.Y+35, 'coin', "src/assets/images/coin/coin.png");
-    coin.setScale(1, 1);
-
-    let frameNames = this.anims.generateFrameNames('coin', {
-      start: 1, end: 8, zeroPad: 2,
-      prefix: 'coin', suffix: '.png'
-    });
-
-    this.anims.create({ key: 'spin', frames: frameNames, frameRate: 10, repeat: -1 });
-    coin.anims.play('spin');
+    // let coin = this.add.sprite(SCORE.X+10, SCORE.Y+35, 'coin', "src/assets/images/coin/coin.png");
+    // coin.setScale(1, 1);
+    //
+    // let frameNames = this.anims.generateFrameNames('coin', {
+    //   start: 1, end: 8, zeroPad: 2,
+    //   prefix: 'coin', suffix: '.png'
+    // });
+    //
+    // this.anims.create({ key: 'spin', frames: frameNames, frameRate: 10, repeat: -1 });
+    // coin.anims.play('spin');
+    let coin = this.add.image(SCORE.X + 10, SCORE.Y + 35, 'coin')
   }
 
   createTimerText () {
