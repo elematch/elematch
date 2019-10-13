@@ -20,5 +20,5 @@ export class Card {
     this.count = count;
     this.color = color;
     this.level = level;
-  }
+}
 }

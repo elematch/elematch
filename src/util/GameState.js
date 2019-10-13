@@ -87,7 +87,6 @@ export class GameState {
                     }
                     this.emitTimeChange()
                 }
-                console.log(this);
             }
         }
     }

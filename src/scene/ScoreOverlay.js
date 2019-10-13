@@ -61,7 +61,6 @@ export class ScoreOverlay extends BaseScene {
   }
 
   init ({ time }) {
-    console.log(`initialized ScoreOverlay with ${time}s`)
     if (typeof time === 'undefined') {
       time = 999
     }
@@ -153,7 +152,6 @@ export class ScoreOverlay extends BaseScene {
       this.setScoreText(this.score)
     }
     if (gameState.lives !== this.lifes) {
-      console.log(gameState)
       this.updateLifeBar(gameState.lives)
       this.lifes = gameState.lives
     }
@@ -187,7 +185,6 @@ export class ScoreOverlay extends BaseScene {
 
   updateLifeBar (lifes) {
     if (this.lifeBar !== null) {
-      console.log('updateLifeBar', lifes)
       this.lifeBar.setLifes(lifes)
     }
   }

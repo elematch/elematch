@@ -162,6 +162,7 @@ export class Game extends BaseScene {
     endGame () {
         this.removeAllListeners()
         this.scene.remove('ScoreOverlay')
-        this.scene.start('GameOver', { finalScore: 100 })
+        let gameState = this.data.get('gameState')
+        this.scene.start('GameOver', { finalScore: gameState.score })
     }
 }
