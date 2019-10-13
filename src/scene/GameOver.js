@@ -17,12 +17,6 @@ export class GameOver extends BaseScene {
     this.score = 0
   }
 
-  preload () {
-    this.load.image('gameOverBackground', gameOverBackground)
-    this.load.image('playAgain', playAgain)
-    this.load.image('playAgainActive', playAgainActive)
-  }
-
   init ({ finalScore }) {
     this.score = finalScore
   }

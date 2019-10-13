@@ -7,6 +7,7 @@ import { Tutorial } from './scene/Tutorial'
 import { ScoreOverlay } from './scene/ScoreOverlay'
 import { Tutorial2 } from './scene/Tutorial2'
 import { GameOver } from './scene/GameOver'
+import { Preload } from './scene/Preload'
 
 export class Game extends Phaser.Game {
   constructor () {
@@ -17,11 +18,13 @@ export class Game extends Phaser.Game {
       height: SCREEN_HEIGHT,
       title: 'ELEMATCH',
       scene: [
+        Preload,
         Background, // This background scene is a total hack and is only used on the game screen
         Menu,
         Tutorial,
         Tutorial2,
         GameScene,
+        ScoreOverlay,
         GameOver
       ]
     })

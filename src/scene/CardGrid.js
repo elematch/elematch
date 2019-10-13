@@ -17,30 +17,6 @@ export class CardGrid extends BaseScene {
     this.cardstack = new CardStack();
   }
 
-  preload () {
-    this.preloadCardImages();
-  }
-
-  preloadCardImages () {
-    const importAll = (require) => {
-      const imagePaths = require.keys()
-      const images = require.keys().map(require)
-
-      const phaserImageKeys = imagePaths.map((imagePath) => {
-        const fileName = imagePath.substr(2)
-        return fileName.substring(0, fileName.length - 4)
-      });
-      for (let i = 0; i < images.length; i++) {
-        this.load.image(phaserImageKeys[i], images[i])
-      }
-    };
-    importAll(require.context('../assets/images/cards', false, /\.(png|jpe?g|svg)$/))
-    this.load.audio('select1Sound', select1Sound)
-    this.load.audio('select2Sound', select2Sound)
-    this.load.audio('select3Sound', select3Sound)
-    this.load.audio('selectFailSound', selectFailSound)
-  }
-
   placeDeck () {
     this.children.removeAll();
     let deck = this.cardstack.getDeck();

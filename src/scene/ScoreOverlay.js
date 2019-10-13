@@ -46,23 +46,6 @@ export class ScoreOverlay extends BaseScene {
     this.lifeBar = null
   }
 
-  preload () {
-    this.load.image('refreshButton', refreshButton)
-    this.load.image('refreshButtonActive', refreshButtonActive)
-    this.load.image('scoreField', scoreField)
-    this.load.image('timerField', timerField)
-    this.load.image('coin', coin)
-
-    // const coinImages = process.env["NODE_ENV"] === "prod" ? "./sprites/coin" : "src/assets/images/coin";
-    // this.load.multiatlas('coin', coinAtlas, coinImages)
-
-    this.load.image('indicatorBar1', indicatorBar1)
-    this.load.image('indicatorBar2', indicatorBar2)
-    this.load.image('indicatorBar3', indicatorBar3)
-    this.load.image('indicatorBar4', indicatorBar4)
-    this.load.image('indicatorBar5', indicatorBar5)
-  }
-
   init ({ time }) {
     if (typeof time === 'undefined') {
       time = 999
