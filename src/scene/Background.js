@@ -6,7 +6,6 @@ export class Background extends BaseScene {
   constructor (props) {
     super({
       key: 'Background',
-      active: true,
       ...props
     })
   }

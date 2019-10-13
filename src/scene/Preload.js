@@ -27,24 +27,28 @@ import background from '../assets/images/background-with-area.png'
 import gameOverBackground from '../assets/images/background-gameover.png'
 import playAgain from '../assets/images/buttons/button-playagain.png'
 import playAgainActive from '../assets/images/buttons/button-playagain-active.png'
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../constants/game'
 
 export class Preload extends Phaser.Scene {
+  constructor (props) {
+    super(props)
+    this.percentageText = null
+  }
+
   switchToMenu () {
     this.scene.start('Menu')
   }
 
   preload () {
-    this.load.on('progress', (progress) => {
-      console.log('progress is', progress)
-    })
+    this.load.on('progress', this.updatePercentageText.bind(this))
     // this.load.on('fileprogress', (fileprogress) => {
     //   console.log('fileprogress is', fileprogress)
     // })
     this.load.on('complete', () => {
-      console.log('YEEES')
       this.switchToMenu()
     })
 
+    this.createText()
     this.preloadBackground()
     this.preloadMenuImages()
     this.preloadTutorialImages()
@@ -53,6 +57,22 @@ export class Preload extends Phaser.Scene {
     this.preloadScoreOverlayImages()
     this.preloadAudio()
     this.preloadPlayAgain()
+  }
+
+  createText () {
+    const text = this.add.text(
+      0,
+      SCREEN_HEIGHT / 2 - 100,
+      '0%', {
+        font: `100px DisposableDroid`,
+        color: '#ffffff',
+        align: 'center',
+        boundsAlignV: 'center',
+        fixedWidth: SCREEN_WIDTH,
+      }
+    )
+    text.setDepth(100)
+    this.percentageText = text
   }
 
   preloadBackground () {
@@ -124,5 +144,15 @@ export class Preload extends Phaser.Scene {
     this.load.image('gameOverBackground', gameOverBackground)
     this.load.image('playAgain', playAgain)
     this.load.image('playAgainActive', playAgainActive)
+  }
+
+  updatePercentageText (progress) {
+    if (this.percentageText === null) {
+      return
+    }
+    const percent = progress * 100
+    const percentString = percent.toString(10)
+    const percentInteger = parseInt(percentString)
+    this.percentageText.setText(`${percentInteger}%`)
   }
 }

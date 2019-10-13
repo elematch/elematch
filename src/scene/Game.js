@@ -8,6 +8,7 @@ import {getTextureNameForCard} from "../util/entity/Card";
 import { GAME_TIME } from '../constants/game'
 import { CardGrid } from './CardGrid'
 import { LastMatch } from './LastMatch'
+import { Background } from './Background'
 
 export class Game extends BaseScene {
     constructor() {
@@ -25,6 +26,11 @@ export class Game extends BaseScene {
         let gameState = new GameState({time: GAME_TIME});
         this.data.set("gameState", gameState);
         gameState.startTimer();
+
+        if (this.scene.get('Background')) {
+            this.scene.remove('Background')
+        }
+        this.scene.add('Background', Background, true)
 
         if (this.scene.get('ScoreOverlay')) {
             this.scene.remove('ScoreOverlay')
@@ -64,6 +70,7 @@ export class Game extends BaseScene {
         this.scene.remove('ScoreOverlay')
         this.scene.remove('CardGrid')
         this.scene.remove('LastMatch')
+        this.scene.remove('Background')
         let gameState = this.data.get('gameState')
         this.scene.start('GameOver', { finalScore: gameState.score })
     }
