@@ -14,6 +14,10 @@ export let getTextureNameForCard = (card, variant = "half") => {
   return ELEMENT[card.element] + "-" + COLOR[card.color] + "-" + card.count + "-" + variant;
 };
 
+export let getTextureNameForCardObjectLiteral = (card, variant = "half") => {
+  return ELEMENT[card.element] + "-" + COLOR[card.color] + "-" + card.count + "-" + variant;
+};
+
 export class Card {
   constructor({element, count, color, level}) {
     this.element = element;

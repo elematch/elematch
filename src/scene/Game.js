@@ -7,6 +7,7 @@ import {GameState} from "../util/GameState";
 import {getTextureNameForCard} from "../util/entity/Card";
 import { GAME_TIME } from '../constants/game'
 import { CardGrid } from './CardGrid'
+import { LastMatch } from './LastMatch'
 
 export class Game extends BaseScene {
     constructor() {
@@ -35,6 +36,11 @@ export class Game extends BaseScene {
         }
         this.scene.add('CardGrid', CardGrid, true)
 
+        if (this.scene.get('LastMatch')) {
+            this.scene.remove('LastMatch')
+        }
+        this.scene.add('LastMatch', LastMatch, true)
+
         this.subscribeToTimeChange()
     }
 
@@ -57,6 +63,7 @@ export class Game extends BaseScene {
         this.removeAllListeners()
         this.scene.remove('ScoreOverlay')
         this.scene.remove('CardGrid')
+        this.scene.remove('LastMatch')
         let gameState = this.data.get('gameState')
         this.scene.start('GameOver', { finalScore: gameState.score })
     }
