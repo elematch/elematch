@@ -111,9 +111,9 @@ export class CardGrid extends BaseScene {
     this.scene.get('Game').events.on('changedata', (gameState) => {
       this.children.getAll().forEach((child) => {
         if (child.active) {
-          child.setSelected(false);
+          child.setSelected(false)
         }
-      });
+      })
 
       gameState.getSelectedCards().forEach((card) => {
         this.children.getAt(card.id).setSelected(true);
@@ -125,17 +125,26 @@ export class CardGrid extends BaseScene {
           music1.play()
         }
 
-        if (gameState.lastSelectionSuccess === false && gameState.getSelectedCards().length === 0) {
+        if (gameState.lastSelectionSuccess === false && gameState.getSelectedCards().length === 3) {
           let musicFail = this.sound.add('selectFailSound');
           musicFail.play()
           this.children.getAt(card.id).noMatchAnimation()
         }
       });
 
+      if (gameState.getSelectedCards().length === 3) {
+        gameState.resetSelectedCards()
+        this.children.getAll().forEach((child) => {
+          if (child.active) {
+            child.setSelected(false)
+          }
+        })
+      }
+
       if (gameState.newDeck) {
-        let music = this.sound.add('select3Sound');
+        let music = this.sound.add('select3Sound')
         music.play()
-        this.placeDeck();
+        this.placeDeck()
       }
     });
   }

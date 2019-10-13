@@ -57,6 +57,11 @@ export class GameState {
         return this.time <= 0;
     }
 
+    resetSelectedCards() {
+        this.clickedCards.clear()
+        this.lastSelectionSuccess = null
+    }
+
     toggleCard({id, data}) {
         if (this.clickedCards.has(id)) {
             this.clickedCards.delete(id);
@@ -72,14 +77,13 @@ export class GameState {
                 if (isValidSet(...cards)) {
                     this.lastSelectionSuccess = true;
                     this.score += getSetDifficulty(...cards) * DIFFICULTY_SCORE_MULTIPLIER;
-                    this.clickedCards.clear();
+                    //this.clickedCards.clear();
                     this.newDeck = true;
                 } else {
                     this.lastSelectionSuccess = false;
                     this.time -= TIME_LOSS_PER_FAILURE;
                     this.time = Math.max(this.time, 0)
                     this.lives -= 1;
-                    this.clickedCards.clear();
 
                     if (this.lives === 0) {
                         this.lives = LIVES;
